@@ -62,7 +62,12 @@ class LinkedList {
 
     // Return the first node in the list
     head() {
-        return this.head;
+        // Check for an empty list, otherwise return head
+        if (this.head == null) {
+            return null;
+        } else {
+            return this.head;
+        }
     }
 
     // Return the last node in the list
