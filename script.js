@@ -135,22 +135,53 @@ class LinkedList {
    }
 
     toString() {
-         //Iterate through list from head to end
-         let current = this.head;
-         let string = "";
-         // Return index if the current node's value matches the argument
-         do {
-            string = string.concat("("+ current.value + ") -> ");
-            current = current.nextNode;
+        //Iterate through list from head to end
+        let current = this.head;
+        let string = "";
+        // Return index if the current node's value matches the argument
+        do {
+        string = string.concat("("+ current.value + ") -> ");
+        current = current.nextNode;
         }
         while (current);
         // Return null if no node matches the argument
         string = string.concat("null");
         return string;
     }
-    // OPTIONAL: insertAt(value, index), removeAt(index)
 
+    // Insert a new node with the provided value at the given index
+    insertAt(value, index) {
+        // Create a new node
+        let node = new Node(value);
+        // Declare pointer and previous
+        let current = this.head
+        let prev;
+        // Iterate to selected index
+        for (let i = 0; i < index; i++) {
+            prev = current
+            current = current.nextNode;
+        }
+        // Set new node's pointer to current node
+        node.nextNode = current;
+        // Set previous node's point to new node
+        prev.nextNode = node; 
+    }
+
+    // Remove the node at the given index
+    removeAt(index) {
+          // Declare pointer and previous
+          let current = this.head
+          let prev;
+          // Iterate to selected index
+          for (let i = 0; i < index; i++) {
+              prev = current
+              current = current.nextNode;
+          }
+          // Set previous node's point to current node's pointer, bypasses current node
+          prev.nextNode = current.nextNode; 
+    }
 }
+
 // Node factory
 class Node {
     constructor(value = null, nextNode = null) {
@@ -159,7 +190,7 @@ class Node {
     }
 }
 
-
+// Function tests
 const testList = new LinkedList;
 testList.append("bravo");
 testList.append("charlie");
@@ -202,3 +233,17 @@ console.log(testList.find("bravo"));
 console.log(testList.find("foxtrot"));
 
 console.log(testList.toString());
+
+testList.insertAt("alpha2", 1);
+console.log(
+    JSON.stringify(
+        testList, null, 2
+    )
+);
+
+testList.removeAt(1);
+console.log(
+    JSON.stringify(
+        testList, null, 2
+    )
+);
