@@ -78,12 +78,12 @@ class LinkedList {
 
      // Return the node at the given index
     at(index) {
-        //Iterate through list from head to end
+        //Iterate through list from head to index
         let current = this.head;
         for (let i = 0; i < index; i++) {
             current = current.nextNode;
         }
-        //Return the last node
+        //Return the node
         return current;
     }
 
@@ -100,7 +100,7 @@ class LinkedList {
         prev.nextNode = null;
     }
 
-    // Returns true if the passed in value is in the list and otherwise returns false.
+    // Return true if the passed-in value is in the list; otherwise return false.
     contains(value) {
          //Iterate through list from head to end
          let current = this.head;
@@ -118,7 +118,7 @@ class LinkedList {
 
     // Returns the index of the node containing value, or null if not found.
     find(value)  {
-        //Iterate through list from head to end
+        // Iterate through list from head to end
         let current = this.head;
         let index = 0;
         // Return index if the current node's value matches the argument
@@ -132,19 +132,20 @@ class LinkedList {
        while (current);
        // Return null if no node matches the argument
        return null;
-   }
+    }
 
+    // Represent LinkedList object as string
     toString() {
-        //Iterate through list from head to end
+        // Declare pointer and string
         let current = this.head;
         let string = "";
-        // Return index if the current node's value matches the argument
+        // Concatonate each node's value to string
         do {
         string = string.concat("("+ current.value + ") -> ");
         current = current.nextNode;
         }
         while (current);
-        // Return null if no node matches the argument
+        // Concatonate "null" to the end of the string
         string = string.concat("null");
         return string;
     }
@@ -192,58 +193,59 @@ class Node {
 
 // Function tests
 const testList = new LinkedList;
+
+// Append 2 nodes
 testList.append("bravo");
 testList.append("charlie");
-// Show a string of the object to avoid "pass by reference" issue
+
+// CHEAT!: Show a string of the object to avoid "pass by reference" issue
 console.log(
     JSON.stringify(
         testList, null, 2
     )
 );
 
+// Append node to end and prepend node to beginning of list
 testList.append("delta");
 testList.prepend("alpha");
 
+// Return number of nodes in list (4)
 sizeCheck = testList.size()
 console.log(sizeCheck);
 
+// Return first node ("alpha")
 console.log(testList.head);
 
+// Return last node ("delta")
 let tail = testList.tail();
 console.log(tail);
 
-console.log(testList.at(2));
-console.log(
-    JSON.stringify(
-        testList, null, 2
-    )
-);
+// console.log(testList.at(2));
+// console.log(
+//     JSON.stringify(
+//         testList, null, 2
+//     )
+// );
 
+// Remove last node ("delta"), console log now shows "charlie" as last node
 testList.pop();
-console.log(
-    JSON.stringify(
-        testList, null, 2
-    )
-);
+console.log(testList.toString());
 
+// Check if list contains "charlie" (true) and "echo" (false)
 console.log(testList.contains("charlie"));
 console.log(testList.contains("echo"));
 
+// Get index of "bravo" (1) and "echo" (null)
 console.log(testList.find("bravo"));
 console.log(testList.find("foxtrot"));
 
+// Output list as string ("(alpha) -> (bravo) -> (charlie) -> null")
 console.log(testList.toString());
 
+// Insert a new node at index 1 ("alpha2")
 testList.insertAt("alpha2", 1);
-console.log(
-    JSON.stringify(
-        testList, null, 2
-    )
-);
+console.log(testList.toString());
 
+// Remove the node at index 1 ("alpha2")
 testList.removeAt(1);
-console.log(
-    JSON.stringify(
-        testList, null, 2
-    )
-);
+console.log(testList.toString());
